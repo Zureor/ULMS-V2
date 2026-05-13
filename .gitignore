@@ -25,6 +25,9 @@ Thumbs.db
 logs/
 *.log
 
+# Design documents
+docs/superpowers/
+
 # Local config (never commit secrets!)
 application-local.yml
 application-local.properties
