@@ -1,0 +1,40 @@
+# ============================================
+# Development Profile Configuration
+# ============================================
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  sql:
+    init:
+      mode: never
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+# Override JWT for dev
+jwt:
+  secret: dev_secret_key_for_testing_only
+  expiration: 604800000  # 7 days for dev
+
+logging:
+  level:
+    com.ulms: DEBUG
+
+server:
+  port: 8081

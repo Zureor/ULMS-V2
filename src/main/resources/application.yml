@@ -1,0 +1,76 @@
+# ============================================
+# ULMS Application Configuration
+# University Library Management System
+# ============================================
+
+spring:
+  application:
+    name: ulms
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/ulms_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ulms_user
+    password: ulms_pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 20
+        jdbc:
+          batch_size: 25
+        order_inserts: true
+        order_updates: true
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    session:
+      timeout: 30m
+      cookie:
+        http-only: true
+        secure: false
+
+jwt:
+  secret: ULMS_SECRET_KEY_2026_CHANGE_ME_IN_PRODUCTION
+  expiration: 86400000
+
+logging:
+  level:
+    com.ulms: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %highlight(%-5level) - %msg%n"
+  file:
+    name: logs/ulms.log
+
+springdoc:
+  swagger-ui:
+    path: /api-docs
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+
+app:
+  cors:
+    allowed-origins: "http://localhost:3000,http://localhost:8080"
+
+ulms:
+  fine:
+    daily-rate: 0.50
+    max-fine: 50.00
+    loan-period-days: 14

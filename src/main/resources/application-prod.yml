@@ -1,0 +1,40 @@
+# ============================================
+# Production Profile Configuration
+# ============================================
+
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/ulms_db?useSSL=true&requireSSL=true
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate  # NEVER use update in production
+    show-sql: false
+
+  thymeleaf:
+    cache: true
+
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    session:
+      cookie:
+        secure: true
+        http-only: true
+        same-site: strict
+
+logging:
+  level:
+    com.ulms: WARN
+    org.springframework: WARN
+
+jwt:
+  secret: ${JWT_SECRET}
+
+ulms:
+  fine:
+    daily-rate: ${FINE_DAILY_RATE:0.50}
+    max-fine: ${FINE_MAX_AMOUNT:50.00}

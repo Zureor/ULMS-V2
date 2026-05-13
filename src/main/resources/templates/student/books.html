@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+    <title>ULMS - Browse Books</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: layout(~{::#student-books-content})}">
+    <div id="student-books-content">
+        <h2>Browse Books</h2>
+        
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+        <form th:action="@{/api/books}" method="get" class="row g-3 mb-3">
+            <div class="col-auto">
+                <input type="text" name="query" th:value="${query}" class="form-control" placeholder="Search by title, author, ISBN...">
+            </div>
+            <div class="col-auto">
+                <select name="category" class="form-select">
+                    <option value="">All Categories</option>
+                    <option th:each="cat : ${categories}" th:value="${cat}"
+                            th:text="${cat}" th:selected="${cat == category}"></option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-search me-1"></i>Search</button>
+            </div>
+        </form>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>ISBN</th><th>Title</th><th>Author</th><th>Category</th>
+                <th>Available</th><th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.isbn}"></td>
+                <td th:text="${book.title}"></td>
+                <td th:text="${book.author}"></td>
+                <td th:text="${book.category}"></td>
+                <td th:text="${book.availableCopies + '/' + book.totalCopies}"></td>
+                <td>
+                    <form th:action="@{/api/reservations}" method="post" style="display:inline">
+                        <input type="hidden" name="bookId" th:value="${book.id}">
+                        <button type="submit" class="btn btn-sm"
+                                th:classappend="${reservedBookIds.contains(book.id)} ? 'btn-secondary' : 'btn-success'"
+                                th:disabled="${book.availableCopies <= 0 || reservedBookIds.contains(book.id)}">
+                            <i class="fas fa-bookmark me-1"></i>
+                            <span th:text="${reservedBookIds.contains(book.id)} ? 'Reserved' : 'Reserve'"></span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

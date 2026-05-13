@@ -1,0 +1,70 @@
+# ============================================
+# ULMS - Git Ignore
+# ============================================
+
+# Build output
+target/
+build/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+.factorypath
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Local config (never commit secrets!)
+application-local.yml
+application-local.properties
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Compiled class files
+*.class
+
+# Maven
+.mvn/
+
+# Docker
+docker-compose.override.yml
+
+# Coverage reports
+jacoco*.exec
+coverage/
+*.xml
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# OS generated files
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Spring Boot
+*.pid
+*.properties
+
+# Credentials files
+*.p12
+*.jks
+*.keystore
+secrets/

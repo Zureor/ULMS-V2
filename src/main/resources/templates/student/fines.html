@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+    <title>ULMS - My Fines</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: layout(~{::#student-fines-content})}">
+    <div id="student-fines-content">
+        <h2>My Fines</h2>
+        <div th:if="${totalUnpaid}" class="alert alert-warning">
+            <strong>Total Unpaid: $</strong><span th:text="${#numbers.formatDecimal(totalUnpaid, 1, 2)}"></span>
+        </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>ID</th><th>Reservation</th><th>Amount</th><th>Reason</th><th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="fine : ${fines}">
+                <td th:text="${fine.id}"></td>
+                <td th:text="${fine.bookTitle}"></td>
+                <td th:text="'$' + ${#numbers.formatDecimal(fine.amount, 1, 2)}"></td>
+                <td th:text="${fine.reason}"></td>
+                <td>
+                    <span class="badge"
+                          th:classappend="${fine.status == 'PAID' ? 'bg-success' : (fine.status == 'UNPAID' ? 'bg-danger' : 'bg-secondary')}"
+                          th:text="${fine.status}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

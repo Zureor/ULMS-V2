@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary: #7C3AED;      /* Excitement purple */
+    --primary-hover: #6D28D9;
+    --secondary: #A78BFA;
+    --accent: #F97316;       /* Action orange */
+    --accent-hover: #EA580C;
+    --bg-main: #FAF5FF;
+    --bg-card: #FFFFFF;
+    --text-main: #4C1D95;
+    --text-muted: #6B7280;
+    --border-color: #E5E7EB;
+    
+    --sidebar-width: 260px;
+    --topbar-height: 70px;
+}
+
+body {
+    font-family: 'Fira Sans', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 600;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+}
+
+/* UI Card - Minimalist replacement for glass-card */
+.ui-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--border-color);
+    padding: 2rem 1.5rem;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1040;
+}
+
+.sidebar .nav-link {
+    color: var(--text-muted);
+    border-radius: 8px;
+    padding: 10px 16px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.sidebar .nav-link:hover, .sidebar .nav-link.active {
+    background-color: rgba(124, 58, 237, 0.08);
+    color: var(--primary);
+}
+
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 2rem;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Mobile Topbar */
+.mobile-topbar {
+    display: none;
+    height: var(--topbar-height);
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+    padding: 0 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Buttons */
+.btn {
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 8px 16px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+}
+
+.btn-success {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: white !important;
+}
+
+.btn-success:hover {
+    background-color: var(--accent-hover) !important;
+    border-color: var(--accent-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
+}
+
+/* Form Elements */
+.form-control, .form-select {
+    background-color: #F9FAFB !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    color: var(--text-main) !important;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: #fff !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15) !important;
+}
+
+/* Tables */
+.table-responsive {
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    overflow: hidden;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    background-color: #F3F4F6 !important;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 12px 20px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.table td {
+    padding: 16px 20px !important;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color) !important;
+    color: #374151;
+}
+
+.table tr:last-child td {
+    border-bottom: none !important;
+}
+
+.table tbody tr:hover {
+    background-color: #F9FAFB !important;
+}
+
+/* Stats Cards (Dashboards) */
+.stat-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    margin: 12px 0 4px 0;
+    color: var(--primary);
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+}
+
+/* Auth Container */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 991.98px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 1.5rem 1rem;
+    }
+    
+    .ui-card {
+        padding: 1.5rem !important;
+    }
+
+    .mobile-topbar {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(15, 23, 42, 0.4);
+        z-index: 1035;
+        backdrop-filter: blur(2px);
+    }
+    
+    .overlay.show {
+        display: block;
+    }
+}
