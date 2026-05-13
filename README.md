@@ -1,84 +1,61 @@
-# ULMS - University Library Management System
+# ULMS-V2 (University Library Management System)
 
-ULMS is a modern, Spring Boot-based Library Management System designed to handle book reservations, fine management, and user roles (Admin, Librarian, Student).
+A Spring Boot 3 application with MySQL persistence and automatic fine calculation.
 
-## Features
+## 1. System Requirements
+- **Java Runtime**: JDK 17
+- **Build Tool**: Maven 3.6+
+- **Database**: MySQL 8.0
+- **Operating System**: Linux / Windows / macOS
 
--   **Automatic Fine Calculation:** Fines are automatically generated when books are returned after the due date.
--   **Role-Based Access Control:** Distinct dashboards for Admin, Librarian, and Students.
--   **Book Management:** Track total vs. available copies.
--   **Reservation System:** Request, approve, and return workflow.
--   **Audit Logging:** Track important system actions.
--   **Persistent Storage:** Uses MySQL for data durability.
+## 2. Environmental Configuration
+The application connects to MySQL using the following parameters defined in `src/main/resources/application.yml`:
 
----
+| Parameter | Value |
+| :--- | :--- |
+| **Host** | `localhost` |
+| **Port** | `3306` |
+| **Database Name** | `ulms_db` |
+| **Username** | `ulms_user` |
+| **Password** | `ulms_pass` |
 
-## Prerequisites
+## 3. Database Initialization (Execute as Root)
+Copy and run these SQL commands in your MySQL terminal to prepare the environment:
 
-Before setting up the project, ensure you have the following installed:
-
--   **Java 17 or higher** (OpenJDK recommended)
--   **Maven 3.6+**
--   **MySQL Server 8.0+**
--   **Git**
-
----
-
-## Getting Started
-
-### 1. Clone the Repository
-```bash
-git clone <your-repository-url>
-cd ulms-springboot
+```sql
+CREATE DATABASE IF NOT EXISTS ulms_db;
+CREATE USER IF NOT EXISTS 'ulms_user'@'localhost' IDENTIFIED BY 'ulms_pass';
+GRANT ALL PRIVILEGES ON ulms_db.* TO 'ulms_user'@'localhost';
+FLUSH PRIVILEGES;
 ```
 
-### 2. Database Setup
-1.  Log in to your MySQL terminal:
-    ```sql
-    mysql -u root -p
-    ```
-2.  Run the following commands to create the database and user:
-    ```sql
-    CREATE DATABASE IF NOT EXISTS ulms_db;
-    CREATE USER 'ulms_user'@'localhost' IDENTIFIED BY 'ulms_pass';
-    GRANT ALL PRIVILEGES ON ulms_db.* TO 'ulms_user'@'localhost';
-    FLUSH PRIVILEGES;
-    ```
+## 4. Build and Execution Sequence
+Follow these commands in exact order from the project root directory:
 
-### 3. Configuration
-The application is pre-configured to connect to `ulms_db` via `ulms_user`. You can modify these settings in:
-`src/main/resources/application.yml`
+1. **Clean and Install Dependencies**:
+   ```bash
+   mvn clean install -DskipTests
+   ```
 
-### 4. Build and Run
-```bash
-mvn clean install
-mvn spring-boot:run
-```
-The application will be accessible at: **http://localhost:8080**
+2. **Launch Application**:
+   ```bash
+   mvn spring-boot:run
+   ```
 
----
+3. **Access Application**:
+   - Web UI: http://localhost:8080
+   - API Docs: http://localhost:8080/api-docs
 
-## Default Credentials (Initial Seed Data)
-
+## 5. Pre-seeded Test Credentials
 | Role | Username | Password |
 | :--- | :--- | :--- |
-| **Admin** | `admin` | `admin123` |
+| **Administrator** | `admin` | `admin123` |
 | **Librarian** | `librarian1` | `lib123` |
 | **Student** | `student1` | `student123` |
 
----
-
-## API Documentation
-Once the app is running, you can access the Swagger/OpenAPI documentation at:
-**http://localhost:8080/api-docs**
-
----
-
-## Running Tests
-To run the automated test suite (including the automatic fine calculation tests):
-```bash
-mvn test
-```
-
-## License
-This project is open-source. Feel free to use and modify.
+## 6. Logic Verification (Auto-Fines)
+1. Login as `librarian1`.
+2. Go to **Reservations**.
+3. Locate the overdue record for `student1`.
+4. Click **Return**.
+5. The system will automatically calculate the fine ($0.50 per day) and update the `fines` table.
