@@ -1,61 +1,70 @@
-# ULMS-V2 (University Library Management System)
+# University Library Management System (ULMS)
 
-A Spring Boot 3 application with MySQL persistence and automatic fine calculation.
+Welcome to ULMS! This is a simple guide to help you get this library system running on your computer from scratch.
 
-## 1. System Requirements
-- **Java Runtime**: JDK 17
-- **Build Tool**: Maven 3.6+
-- **Database**: MySQL 8.0
-- **Operating System**: Linux / Windows / macOS
+## 🌟 What is this?
+This is a website for a university library where:
+- Students can reserve books.
+- Librarians can approve and return books.
+- **Automatic Fines:** If a student returns a book late, the system calculates the fine automatically!
 
-## 2. Environmental Configuration
-The application connects to MySQL using the following parameters defined in `src/main/resources/application.yml`:
+---
 
-| Parameter | Value |
-| :--- | :--- |
-| **Host** | `localhost` |
-| **Port** | `3306` |
-| **Database Name** | `ulms_db` |
-| **Username** | `ulms_user` |
-| **Password** | `ulms_pass` |
+## 🛠️ Step 1: Install the Tools
+Before you start, you need to download and install these three things:
+1.  **Java (JDK 17):** [Download from here](https://adoptium.net/temurin/releases/?version=17)
+2.  **MySQL Database:** [Download MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
+3.  **Maven:** [Download from here](https://maven.apache.org/download.cgi)
 
-## 3. Database Initialization (Execute as Root)
-Copy and run these SQL commands in your MySQL terminal to prepare the environment:
+---
+
+## 🗄️ Step 2: Setup the Database
+The system needs a place to store data. Open your **MySQL Workbench** or **MySQL Command Line** and run these commands:
 
 ```sql
-CREATE DATABASE IF NOT EXISTS ulms_db;
-CREATE USER IF NOT EXISTS 'ulms_user'@'localhost' IDENTIFIED BY 'ulms_pass';
+CREATE DATABASE ulms_db;
+CREATE USER 'ulms_user'@'localhost' IDENTIFIED BY 'ulms_pass';
 GRANT ALL PRIVILEGES ON ulms_db.* TO 'ulms_user'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-## 4. Build and Execution Sequence
-Follow these commands in exact order from the project root directory:
+---
 
-1. **Clean and Install Dependencies**:
-   ```bash
-   mvn clean install -DskipTests
-   ```
+## 🚀 Step 3: Run the Project
+1.  Open your terminal or command prompt.
+2.  Go to the project folder.
+3.  Run this command to build the project:
+    ```bash
+    mvn clean install
+    ```
+4.  Run this command to start the website:
+    ```bash
+    mvn spring-boot:run
+    ```
 
-2. **Launch Application**:
-   ```bash
-   mvn spring-boot:run
-   ```
+---
 
-3. **Access Application**:
-   - Web UI: http://localhost:8080
-   - API Docs: http://localhost:8080/api-docs
+## 💻 Step 4: Open the Website
+Once it says "Started UlmsApplication", open your web browser and go to:
+**[http://localhost:8080](http://localhost:8080)**
 
-## 5. Pre-seeded Test Credentials
+### Try logging in!
 | Role | Username | Password |
 | :--- | :--- | :--- |
-| **Administrator** | `admin` | `admin123` |
+| **Admin** | `admin` | `admin123` |
 | **Librarian** | `librarian1` | `lib123` |
 | **Student** | `student1` | `student123` |
 
-## 6. Logic Verification (Auto-Fines)
-1. Login as `librarian1`.
-2. Go to **Reservations**.
-3. Locate the overdue record for `student1`.
-4. Click **Return**.
-5. The system will automatically calculate the fine ($0.50 per day) and update the `fines` table.
+---
+
+## 🎯 How to test the "Auto-Fine" feature
+1.  Log in as **librarian1**.
+2.  Go to the **Reservations** menu.
+3.  You will see a book that is already overdue.
+4.  Click **Return**.
+5.  Check the **Fines** menu—you'll see the system automatically added a fine for the late return!
+
+---
+
+## 📄 Developers
+For automated AI setup instructions, see `PROMPT.md`.
